@@ -19,7 +19,7 @@ All recorded videos will be shared in the [Youtube channel](https://www.youtube.
 
 ## Meeting Schedule 
 
-You can check the timezone for your country here[https://www.worldtimebuddy.com/]
+You can check the timezone for your country [here](https://www.worldtimebuddy.com/)
 
 ### Book 1: Profit From Your Forecasting Software: A Best Practice Guide for Sales Forecasters
 
@@ -27,17 +27,15 @@ You can check the timezone for your country here[https://www.worldtimebuddy.com/
 - Every Tuesday, 12:30 p.m. -13:30 p.m. (Europe/London)
 - Start Date: 15 Sep. 2020
 
-You can find the shcedule [here] (https://docs.google.com/spreadsheets/d/1DeduLV2O_HeD5zI0bpe89cut-5g0Zn6wZWSuNq4iYA0/edit?usp=sharing)
+You can find the shcedule [here](https://docs.google.com/spreadsheets/d/1DeduLV2O_HeD5zI0bpe89cut-5g0Zn6wZWSuNq4iYA0/edit?usp=sharing)
 
 ### Book 2: Forecasting: Principles and Practice
 
 - Author: Rob J Hyndman and George Athanasopoulos
-- Link to the book: [Forecasting: Principles and Practice](https://otexts.com/fpp3/)
+- Every Friday, 12:30 p.m. -13:30 p.m. (Europe/London)
+- Start Date: 02 Oct. 2020
 
-Every Friday, 12:30 p.m. -13:30 p.m. (Europe/London)
-Start Date: 02 Oct. 2020
-
-You can find the shcedule [here] (https://docs.google.com/spreadsheets/d/1DeduLV2O_HeD5zI0bpe89cut-5g0Zn6wZWSuNq4iYA0/edit?usp=sharing)
+You can find the shcedule [here](https://docs.google.com/spreadsheets/d/1DeduLV2O_HeD5zI0bpe89cut-5g0Zn6wZWSuNq4iYA0/edit?usp=sharing)
 
 
 There is no online version available! You can order the book [here](https://www.amazon.co.uk/Profit-Your-Forecasting-Software-Forecasters/dp/1119414571).
@@ -51,16 +49,16 @@ Please see the map for details of countries/regions (https://dataviz.worldbank.o
 
 ### Book 1: Book 1: Profit From Your Forecasting Software: A Best Practice Guide for Sales Forecasters
 
-| <div style="width:60px"></div>| <div style="width:60px"></div>  | <div style="width:420px"></div> |  <div style="width:190px"></div>   |<div style="width:190px"></div>   |
-|---:|---|---|---|
-| 15 Sep. 2020| Paul Goodwin(https://twitter.com/PaulG00dwin)| Chapter1&2 |[Slides]() |[Video]()
+| <div style="width:60px"></div> | <div style="width:60px"></div>  | <div style="width:420px"></div> |  <div style="width:190px"></div> | <div style="width:190px"></div> |
+|---:|---|---|---|---|
+| 15 Sep. 2020 | Paul Goodwin(https://twitter.com/PaulG00dwin)| Chapter1&2 |[Slides]() |[Video]()
 
 
 
 ### Book 2: Forecasting: Principles and Practice
 
-| <div style="width:60px"></div>| <div style="width:60px"></div>  | <div style="width:420px"></div> |  <div style="width:190px"></div>   |<div style="width:190px"></div>   |
-|---:|---|---|---|
+| <div style="width:60px"></div> | <div style="width:60px"></div>  | <div style="width:420px"></div> |  <div style="width:190px"></div> | <div style="width:190px"></div> |
+|---:|---|---|---|---|
 | 02 Oct. 2020| Bahman Rostami-Tabar(https://twitter.com/Bahman_R_T)| Using R |[Slides]() |[Video]()
 
 
