@@ -6,7 +6,7 @@ An online community to read and discuss forecasting related books.
 
 We will use [Zoom](https://zoom.us/) for all presentations. You will recieve the link to join the meeting in Slack.
 
-## Commuinication and Question/Answer
+## Communication and Question/Answer
 
 All communication will be based on the Slack! please [join the Forecasting Book Club slack channel](https://join.slack.com/t/fbc-cv37548/shared_invite/zt-gqof1n3p-Xs2p261Iqyjrhg85tYfHHA).
 
