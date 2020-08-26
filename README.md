@@ -23,7 +23,7 @@ You can check the timezone for your country [here](https://www.worldtimebuddy.co
 - Every Tuesday, 12:30 p.m. - 13:30 p.m. (Europe/London)
 - Start date: 15 Sep. 2020
 
-You can find the shcedule [here](https://docs.google.com/spreadsheets/d/1DeduLV2O_HeD5zI0bpe89cut-5g0Zn6wZWSuNq4iYA0/edit?usp=sharing)
+You can find the shcedule [here](https://docs.google.com/spreadsheets/d/1DeduLV2O_HeD5zI0bpe89cut-5g0Zn6wZWSuNq4iYA0/edit#gid=0)
 
 ### Book 2: Forecasting: Principles and Practice
 
@@ -31,7 +31,7 @@ You can find the shcedule [here](https://docs.google.com/spreadsheets/d/1DeduLV2
 - Every Friday, 12:30 p.m. - 13:30 p.m. (Europe/London)
 - Start date: 02 Oct. 2020
 
-You can find the shcedule [here](https://docs.google.com/spreadsheets/d/1DeduLV2O_HeD5zI0bpe89cut-5g0Zn6wZWSuNq4iYA0/edit?usp=sharing)
+You can find the shcedule [here](https://docs.google.com/spreadsheets/d/1DeduLV2O_HeD5zI0bpe89cut-5g0Zn6wZWSuNq4iYA0/edit#gid=808381611)
 
 
 ## Link to books
