@@ -42,7 +42,7 @@ There is no online version available! You can order the book [here](https://www.
 
 Prof. Goodwin kindly agreed to send couple of copies of his book for participants from Sub-Saharan Africa, Latin Amercia and carrabian, South Asia,  Middle East and North Africa. We randomly select 10 people from these regions and send the book.
 
-Please see the map for details of countries/regions (https://dataviz.worldbank.org/t/DECDG/views/Worldbyregion2019/Worldbyregion?iframeSizedToWindow=true&:embed=y&:display_spinner=no&:showAppBanner=false&:embed_code_version=3&:loadOrderID=1&:display_count=n&:showVizHome=n&:origin=viz_share_link).
+Please see the [map]((https://dataviz.worldbank.org/t/DECDG/views/Worldbyregion2019/Worldbyregion?iframeSizedToWindow=true&:embed=y&:display_spinner=no&:showAppBanner=false&:embed_code_version=3&:loadOrderID=1&:display_count=n&:showVizHome=n&:origin=viz_share_link)) for details of countries/regions.
 
 ## Presentations & Recordings
 
@@ -51,7 +51,7 @@ Please see the map for details of countries/regions (https://dataviz.worldbank.o
 
 | <div style="width:60px"></div> | <div style="width:60px"></div>  | <div style="width:420px"></div> |  <div style="width:190px"></div> | <div style="width:190px"></div> |
 |---:|---|---|---|---|
-| 15 Sep. 2020 | Paul Goodwin(https://twitter.com/PaulG00dwin)| Chapter1&2 |[Slides]() |[Video]()
+| 15 Sep. 2020 | [Paul Goodwin](https://twitter.com/PaulG00dwin)| Chapter1&2 |[Slides]() |[Video]()
 
 
 
@@ -59,6 +59,6 @@ Please see the map for details of countries/regions (https://dataviz.worldbank.o
 
 | <div style="width:60px"></div> | <div style="width:60px"></div>  | <div style="width:420px"></div> |  <div style="width:190px"></div> | <div style="width:190px"></div> |
 |---:|---|---|---|---|
-| 02 Oct. 2020| Bahman Rostami-Tabar(https://twitter.com/Bahman_R_T)| Using R |[Slides]() |[Video]()
+| 02 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Using R |[Slides]() |[Video]()
 
 
