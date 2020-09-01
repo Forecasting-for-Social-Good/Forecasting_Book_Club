@@ -1,16 +1,6 @@
 # Forecasting Book Club
 
-An online learning community to read and discuss forecasting related books.
-
-## Vide call platform
-
-We will use [Zoom](https://zoom.us/) for all presentations. You will recieve the link to join the meeting in Slack.
-
-## Communication and Question/Answer
-
-All communication will be based on the Slack! please [join the Forecasting Book Club slack channel](https://join.slack.com/t/fbc-cv37548/shared_invite/zt-gqof1n3p-Xs2p261Iqyjrhg85tYfHHA).
-
-All recorded videos will be shared in the [Youtube channel](https://www.youtube.com/channel/UCxEN0wXJJLBL-JZ6Z2GkUDw?view_as=subscriber).
+An online learning community to read and discuss forecasting related books. In each session, we have a contributor who presents a chapter/s of a book following by questions/answers.
 
 ## Meeting schedule
 
@@ -32,6 +22,15 @@ You can find the shcedule [here](https://docs.google.com/spreadsheets/d/1DeduLV2
 
 You can find the shcedule [here](https://docs.google.com/spreadsheets/d/1DeduLV2O_HeD5zI0bpe89cut-5g0Zn6wZWSuNq4iYA0/edit#gid=808381611)
 
+## Vide call platform
+
+We will use [Zoom](https://zoom.us/) for all presentations. You will recieve the link to join the meeting in Slack.
+
+## Communication and Q/A
+
+All communication will be based on the Slack! please [join the Forecasting Book Club slack channel](https://join.slack.com/t/fbc-cv37548/shared_invite/zt-gqof1n3p-Xs2p261Iqyjrhg85tYfHHA).
+
+All recorded videos will be shared in the [Youtube channel](https://www.youtube.com/channel/UCxEN0wXJJLBL-JZ6Z2GkUDw?view_as=subscriber).
 
 ## Link to books
 
