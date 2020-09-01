@@ -24,7 +24,7 @@ You can find the shcedule [here](https://docs.google.com/spreadsheets/d/1DeduLV2
 
 ## Vide call platform
 
-We will use [Zoom](https://zoom.us/) for all presentations. You will recieve the link to join the meeting in Slack.
+We use [Zoom](https://zoom.us/) for video calls. You will recieve the link to join the meeting in the Slack channel.
 
 ## Communication and Q/A
 
