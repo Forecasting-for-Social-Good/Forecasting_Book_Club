@@ -18,7 +18,7 @@ You can find the shcedule [here](https://docs.google.com/spreadsheets/d/1DeduLV2
 
 - Author: Rob J Hyndman and George Athanasopoulos
 - Every Friday, 12:30 p.m. - 13:30 p.m. (Europe/London)
-- Start date: 02 Oct. 2020
+- Start date: 16 Oct. 2020
 
 You can find the shcedule [here](https://docs.google.com/spreadsheets/d/1DeduLV2O_HeD5zI0bpe89cut-5g0Zn6wZWSuNq4iYA0/edit#gid=808381611)
 
@@ -56,6 +56,6 @@ The book is online and free. You can access it  [here](https://otexts.com/fpp3/)
 
 | <div style="width:60px"></div> | <div style="width:60px"></div> | <div style="width:60px"></div>  | <div style="width:420px"></div> |  <div style="width:190px"></div> | <div style="width:190px"></div> |
 |---:|---|---|---|---|---|
-|Week 1 | 02 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Using R |[Slides]() |[Video]()
+|Week 1 | 16 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Using R |[Slides]() |[Video]()
 
 
