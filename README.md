@@ -1,6 +1,6 @@
 # Forecasting Book Club
 
-An online community to read and discuss forecasting related books.
+An online learning community to read and discuss forecasting related books.
 
 ## Vide call platform
 
@@ -11,7 +11,6 @@ We will use [Zoom](https://zoom.us/) for all presentations. You will recieve the
 All communication will be based on the Slack! please [join the Forecasting Book Club slack channel](https://join.slack.com/t/fbc-cv37548/shared_invite/zt-gqof1n3p-Xs2p261Iqyjrhg85tYfHHA).
 
 All recorded videos will be shared in the [Youtube channel](https://www.youtube.com/channel/UCxEN0wXJJLBL-JZ6Z2GkUDw?view_as=subscriber).
-
 
 ## Meeting schedule
 
@@ -39,7 +38,7 @@ You can find the shcedule [here](https://docs.google.com/spreadsheets/d/1DeduLV2
 ### Book 1: Profit From Your Forecasting Software: A Best Practice Guide for Sales Forecasters
 There is no online free version of this book! You can order it [here](https://www.amazon.co.uk/Profit-Your-Forecasting-Software-Forecasters/dp/1119414571) or access some part of it [here](https://books.google.co.uk/books?id=yp1QDwAAQBAJ&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false)
 
-Prof. Goodwin kindly agreed to send couple of copies of his book for participants from Sub-Saharan Africa, Latin Amercia and carrabian, South Asia,  Middle East and North Africa. We randomly select 10 people from these regions and send the book.
+Prof. Goodwin kindly agreed to send couple of copies of his book for participants from Sub-Saharan Africa, Latin Amercia and carrabian, South Asia,  Middle East and North Africa. We randomly select ? participants from these regions and send the book by post.
 
 Please see the [map](https://dataviz.worldbank.org/t/DECDG/views/Worldbyregion2019/Worldbyregion?iframeSizedToWindow=true&:embed=y&:display_spinner=no&:showAppBanner=false&:embed_code_version=3&:loadOrderID=1&:display_count=n&:showVizHome=n&:origin=viz_share_link) for details of countries/regions.
 
