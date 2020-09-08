@@ -37,14 +37,14 @@ All recorded videos will be shared in the [Youtube channel](https://www.youtube.
 ### Book 1: Profit From Your Forecasting Software: A Best Practice Guide for Sales Forecasters
 There is no online free version of this book! You can order it [here](https://www.amazon.co.uk/Profit-Your-Forecasting-Software-Forecasters/dp/1119414571) or access some part of it [here](https://books.google.co.uk/books?id=yp1QDwAAQBAJ&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false)
 
-Prof. Goodwin kindly agreed to send couple of copies of his book to participants from Sub-Saharan Africa, Latin Amercia and carrabian, South Asia,  Middle East and North Africa. We randomly select ? participants from these regions and send the book by mail.
+Prof. Goodwin kindly agreed to send a couple of copies of his book to participants from Sub-Saharan Africa, Latin America and the Caribbean, South Asia, the Middle East and North Africa. We will randomly select participants from these regions and send the book by mail.
 
 Please see the [map](https://dataviz.worldbank.org/t/DECDG/views/Worldbyregion2019/Worldbyregion?iframeSizedToWindow=true&:embed=y&:display_spinner=no&:showAppBanner=false&:embed_code_version=3&:loadOrderID=1&:display_count=n&:showVizHome=n&:origin=viz_share_link) for details of countries/regions.
 
 ### Book2: Forecasting: Principles and Practice
 The book is online and free. You can access it  [here](https://otexts.com/fpp3/).
 
-## Presentations & Recordings
+## Presentation & Recording
 
 ### Book 1: Profit From Your Forecasting Software: A Best Practice Guide for Sales Forecasters
 
