@@ -58,4 +58,10 @@ The book is online and free. You can access it  [here](https://otexts.com/fpp3/)
 |---:|---|---|---|---|---|
 |Week 1 | 16 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Using R |[Slides]() |[Video]()
 
+# Admin team
 
+- Bahman Rostami-Tabar , `rostami-tabarbb@cardiff.ac.uk`
+- Juan Rendon Sanchez , `RendonSanchezJ@cardiff.ac.uk`
+
+ 
+ 
