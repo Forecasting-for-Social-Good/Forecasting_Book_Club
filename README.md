@@ -50,7 +50,7 @@ The book is online and free. You can access it  [here](https://otexts.com/fpp3/)
 
 | <div style="width:60px"></div> | <div style="width:60px"></div> | <div style="width:60px"></div>  | <div style="width:420px"></div> |  <div style="width:190px"></div> | <div style="width:190px"></div> |
 |---:|---|---|---|---|---|
-|Week 1 | 15 Sep. 2020 | [Paul Goodwin](https://twitter.com/PaulG00dwin)| Chapter1&2 |[Slides]() |[Video]()
+|Week 1 | 15 Sep. 2020 | [Paul Goodwin](https://twitter.com/PaulG00dwin)| Chapter1&2 |[Slides](presentations/paul_gooodwim_chp1-2.pptx) |[Video]()
 
 ### Book 2: Forecasting: Principles and Practice
 
