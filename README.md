@@ -22,9 +22,11 @@ You can find the shcedule [here](https://docs.google.com/spreadsheets/d/1DeduLV2
 
 You can find the shcedule [here](https://docs.google.com/spreadsheets/d/1DeduLV2O_HeD5zI0bpe89cut-5g0Zn6wZWSuNq4iYA0/edit#gid=808381611)
 
-## Vide call platform
+## Video call platform
 
-We use [Zoom](https://zoom.us/) for video calls. You will recieve the link to join the meeting in the Slack channel.
+You will recieve a link to join the meeting in the Slack channel.
+
+Please check the `#0-announcements` in the [Slack channel](https://join.slack.com/t/fbc-cv37548/shared_invite/zt-gqof1n3p-Xs2p261Iqyjrhg85tYfHHA).
 
 ## Communication and Q/A
 
