@@ -55,7 +55,7 @@ Please see [GitHub Community Forum Code of Conduct](https://docs.github.com/en/g
 
 ### Contact us
 
-Community administrators can be reached by emailing: `f4socialg@gmail.com`
+Community administrators can be reached by emailing: `rostami-tabarb@cardiff.ac.uk`
 
 ### License
 
