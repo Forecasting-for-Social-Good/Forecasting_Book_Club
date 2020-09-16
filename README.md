@@ -53,6 +53,7 @@ The book is online and free. You can access it  [here](https://otexts.com/fpp3/)
 | <div style="width:60px"></div> | <div style="width:60px"></div> | <div style="width:60px"></div>  | <div style="width:420px"></div> |  <div style="width:190px"></div> | <div style="width:190px"></div> |
 |---:|---|---|---|---|---|
 |Week 1 | 15 Sep. 2020 | [Paul Goodwin](https://twitter.com/PaulG00dwin)| Chapter1&2 |[Slides](presentations/paul_gooodwim_chp1-2.pptx) |[Video](https://youtu.be/z1g30l0C21M)
+|Week 2 | 22 Sep. 2020 | [BENBITOUR Mohammed Hichame](https://twitter.com/Hichame_M_Ben)| Chapter 3 |[Slides]() |[Video]()
 
 ### Book 2: Forecasting: Principles and Practice
 
@@ -64,6 +65,7 @@ The book is online and free. You can access it  [here](https://otexts.com/fpp3/)
 
 - Bahman Rostami-Tabar , `rostami-tabarbb@cardiff.ac.uk`
 - Juan Rendon Sanchez , `RendonSanchezJ@cardiff.ac.uk`
+- Mohammed Hichame Benbitour, `hichem.benbitour@gmail.com`
 
  
  
