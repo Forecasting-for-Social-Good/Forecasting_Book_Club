@@ -50,12 +50,13 @@ The book is online and free. You can access it  [here](https://otexts.com/fpp3/)
 
 ### Book 1: Profit From Your Forecasting Software: A Best Practice Guide for Sales Forecasters
 
-| <div style="width:60px"></div> | <div style="width:60px"></div> | <div style="width:60px"></div>  | <div style="width:420px"></div> |  <div style="width:190px"></div> | <div style="width:190px"></div> |
-|---:|---|---|---|---|---|
+| <div style="width:60px"></div> | <div style="width:60px"></div> | <div style="width:60px"></div>  | <div style="width:420px"></div> |  <div style="width:190px"></div> | <div style="width:190px"></div> |<div style="width:190px"></div> |
+|---:|---|---|---|---|---|---|
 |Week 1 | 15 Sep. 2020 | [Paul Goodwin](https://twitter.com/PaulG00dwin)| Chapter 1&2 |[Slides](presentations/paul_gooodwim_chp1-2.pptx) |[Video](https://youtu.be/z1g30l0C21M)
 |Week 2 | 22 Sep. 2020 | [Hichame Mohammed BENBITOUR ](https://twitter.com/Hichame_M_Ben)| Chapter 3 |[Slides](presentations/Ch3_Bias_andAccuracy_22092020.pptx) |[Video](https://www.youtube.com/watch?v=a8b1U0ggccc)
 |Week 3 | 29 Sep. 2020 | [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Chapter 4 |[Slides](presentations/Chapter4.pdf) |[Video](https://youtu.be/GkOjn8o7i2E)
-|Week 4 | 06 Oct. 2020 | [Shixuan Wang](https://twitter.com/Bahman_R_T)| Chapter 5 |[Slides](presentations/ARIMA_Shixuan.pdf) |[Video]()
+|Week 4 | 06 Oct. 2020 | [Shixuan Wang](https://twitter.com/Shixuan_Wang_)| Chapter 5 |[Slides](presentations/ARIMA_Shixuan.pdf) |[Video](https://www.youtube.com/watch?v=qcrA6vUVPcQ)|[R code]()
+|Week 5 | 13 Oct. 2020 | [Mingzhe Shi](https://twitter.com/MingzheShi)| Chapter 6 |[Slides]() |[Video]()
 
 ### Book 2: Forecasting: Principles and Practice
 
