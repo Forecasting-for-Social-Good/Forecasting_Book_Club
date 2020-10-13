@@ -18,7 +18,8 @@ You can find the shcedule [here](https://docs.google.com/spreadsheets/d/1DeduLV2
 
 - Author: Rob J Hyndman and George Athanasopoulos
 - Every Friday, 12:30 p.m. - 13:30 p.m. (Europe/London)
-- Start date: 16 Oct. 2020
+- A recorded video on Introduction to R, 16 Oct. 2020
+- Start date of Book: 23 Oct. 2020
 
 You can find the shcedule [here](https://docs.google.com/spreadsheets/d/1DeduLV2O_HeD5zI0bpe89cut-5g0Zn6wZWSuNq4iYA0/edit#gid=808381611)
 
@@ -56,7 +57,7 @@ The book is online and free. You can access it  [here](https://otexts.com/fpp3/)
 |Week 2 | 22 Sep. 2020 | [Hichame Mohammed BENBITOUR ](https://twitter.com/Hichame_M_Ben)| Chapter 3 |[Slides](presentations/Ch3_Bias_andAccuracy_22092020.pptx) |[Video](https://www.youtube.com/watch?v=a8b1U0ggccc)
 |Week 3 | 29 Sep. 2020 | [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Chapter 4 |[Slides](presentations/Chapter4.pdf) |[Video](https://youtu.be/GkOjn8o7i2E)
 |Week 4 | 06 Oct. 2020 | [Shixuan Wang](https://twitter.com/Shixuan_Wang_)| Chapter 5 |[Slides](presentations/ARIMA_Shixuan.pdf) |[Video](https://www.youtube.com/watch?v=qcrA6vUVPcQ)|[R code](Rcode/ARIMA_Demo.R)
-|Week 5 | 13 Oct. 2020 | [Mingzhe Shi](https://twitter.com/MingzheShi)| Chapter 6 |[Slides](presentations/chapter6.pptx) |[Video]()
+|Week 5 | 13 Oct. 2020 | [Mingzhe Shi](https://twitter.com/MingzheShi)| Chapter 6 |[Slides](presentations/chapter6.pptx) |[Video](https://youtu.be/TAPg12aWopA)
 
 ### Book 2: Forecasting: Principles and Practice
 
