@@ -1,0 +1,236 @@
+---
+title: "Bookclub"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Simple linear regression
+
+```{r}
+
+# Data prepared
+
+library(readxl)
+LungCapData <- read_excel("~/Desktop/bookclub/LungCapData.xls")
+View(LungCapData)
+attach(LungCapData)
+LungCapData$Smoke <- as.factor(Smoke)
+names(LungCapData)
+
+plot(Age, LungCap, main = "The relationship between lung capacity and age")
+
+# Pearson's correlation 
+
+cor(Age, LungCap)
+
+# Fitting linear models
+
+mod <- lm(LungCap ~ Age)
+
+summary(mod)
+
+# extract the coefficients
+attributes(mod)
+
+mod$coefficients
+
+#  plot the model
+
+plot(Age, LungCap,pch = 21, main = "The relationship between lung capacity and age")
+abline(mod, col = 'red', lwd = 3)
+
+# confidence interval
+
+confint(mod)
+
+confint(mod,level = 0.99)
+
+summary(mod)
+
+# ANOVA table
+anova(mod)
+```
+## Checking linear Regression Assumptions in R
+
+```{r}
+mod <- lm(LungCap ~ Age)
+
+plot(mod)
+
+## non-linear regression plot
+
+set.seed(10)
+y = rnorm(50, 0, 200)
+x = runif(50, 0,100)
+plot(x,y)
+
+nolinear <- lm(y~x)
+
+
+plot(y,x)
+abline(nolinear)
+
+
+plot(nolinear)
+```
+
+## Multiple Linear Regression in R
+
+$\mathrm{y}(\mathrm{x})=\beta_{0}+\beta_{1} \mathrm{x}_{1}+\beta_{2} \mathrm{x}_{2}+\beta_{3} \mathrm{x}_{3}+\ldots . \beta_{\mathrm{n}} \mathrm{X}_{\mathrm{n}}$
+
+```{r}
+# fit a model using age and height as X-variables
+model1 <- lm(LungCap ~ Age + Height)
+
+# get a summary of the model
+summary(model1)
+
+# calculate Pearson's correlation between Age and Height
+cor(Age, Height,method= "pearson")
+
+# ask for confidence intervals for the model coefficients
+confint(model1, conf.level = 0.95)
+
+# fit a model using all X variables
+model2 <- lm(LungCap ~ Age + Height+ Smoke + Gender +Caesarean)
+
+# summary of the model
+summary(model2)
+
+# check the regression diagnostic plots for this model
+plot(model2)
+
+
+```
+
+
+
+
+$$
+\hat{\mu}_{y \mid x}=1.08+0.555 \times \text { Age }-0.649 \times \text { Smoke }
+$$
+
+## Dummy variable
+
+```{r}
+
+class(Smoke)
+levels(Smoke)
+
+# build the regression model
+Smoke <- relevel(Smoke, ref = "yes")
+table(Smoke)
+mod1 <- lm(LungCap~ Age+ Smoke)
+summary(mod1)
+
+# including categorical variable into R
+plot(Age[Smoke =="no"], LungCap[Smoke =="no"], col = "blue", ylim = c(0,15), xlab = "Age", ylab = "LungCap", main = "Lungcapacity VS Age, smoke")
+points(Age[Smoke =="yes"],LungCap[Smoke =='yes'], col="red", pch=16)
+legend(3,15, legend = c("NonSmoker","Smoker"), col = c("blue", "red"), pch = c(1,16), bty = "n")
+
+# adding the regression line 
+# regression line for the non-smokers, in blue.
+abline(a=1.08, b=0.555, col = "blue",lwd = 3)
+# Regression line for Smokers in red
+abline(a = 0.413, b= 0.555, col = "red", lwd = 3)
+
+# Change the reference group
+
+class(Smoke)
+Smoke <- as.factor(Smoke)
+table(Smoke)
+levels(Smoke)
+
+mod <- lm(LungCap ~ Smoke)
+summary(mod)
+
+# set another reference
+Smoke <- relevel(Smoke, ref = "yes")
+Smoke <- relevel(Smoke, ref = "no")
+table(Smoke)
+
+mod1 <- lm(LungCap~ Age+ Smoke)
+summary(mod1)
+
+# transfer the numeric variable in to category variable
+cHeight <- cut(Height, breaks = c(0,50,55,60,65,70,100), labels = c("A", "B", "C", "D", "E", "F"), right = FALSE)
+
+Height[1:10]
+cHeight[1:10]
+
+
+#calculate the mean value  
+mean(LungCap[cHeight = "A"])
+mean(LungCap[cHeight = "B"])
+mean(LungCap[cHeight = "C"])
+mean(LungCap[cHeight = "D"])
+mean(LungCap[cHeight = "E"])
+
+# Generating the model
+mod3 <- lm(LungCap ~ cHeight)
+
+summary(mod3)
+
+
+```
+$$
+X_{\text {smoke}}=\left\{\begin{array}{ll}
+1, & \text { if they smoke } \\
+0, & \text { otherwise }
+\end{array}\right.
+$$
+
+$$
+\begin{array}{l}
+X_{B}=\left\{\begin{array}{ll}
+1, & \text { if in Height Category } \mathrm{B} \\
+0, & \text { otherwise }
+\end{array}\right. \\
+X_{C}=\left\{\begin{array}{ll}
+1, & \text { if in Height Category } \mathrm{C} \\
+0, & \text { otherwise }
+\end{array}\right. \\
+X_{D}=\left\{\begin{array}{ll}
+1, & \text { if in Height Category } D \\
+0, & \text { otherwise }
+\end{array}\right. \\
+X_{E}=\left\{\begin{array}{ll}
+1, & \text { if in Height Category } \mathrm{E} \\
+0, & \text { otherwise }
+\end{array}\right. \\
+X_{F}=\left\{\begin{array}{ll}
+1, & \text { if in Height Category } F \\
+0, & \text { otherwise }
+\end{array}\right.
+\end{array}
+$$
+An Individual in:
+Height Category A will have: $X_{B}=0, X_{C}=0, X_{D}=0, X_{E}=0, X_{F}=0$
+Height Category $\mathrm{B}$ will have: $X_{B}=1, X_{C}=0, X_{D}=0, X_{E}=0, X_{F}=0$
+Height Category $\mathrm{C}$ will have: $X_{B}=0, X_{C}=1, X_{D}=0, X_{E}=0, X_{F}=0$
+Height Category $\mathrm{D}$ will have: $X_{B}=0, X_{C}=0, X_{D}=1, X_{E}=0, X_{F}=0$
+Height Category $\mathrm{E}$ will have: $X_{B}=0, X_{C}=0, X_{D}=0, X_{E}=1, X_{F}=0$
+Height Category $\mathrm{F}$ will have: $X_{B}=0, X_{C}=0, X_{D}=0, X_{E}=0, X_{F}=1$
+
+$\begin{aligned} \hat{\mu}_{L u n g C a p \mid x} &=b_{0}+b_{B} X_{B}+b_{C} X_{C}+b_{D} X_{D}+b_{E} X_{E}+b_{F} X_{F} \\ &=2.15+1.51 X_{B}+3.25 X_{C}+5.02 X_{D}+6.54 X_{E}+8.65 X_{F} \end{aligned}$
+
+# select the best model
+
+```{r}
+# select the best model
+
+# Example 1
+# fit the full model
+Full.model <- lm(LungCap ~ Age + Gender+ Smoke+ Height)
+summary(Full.model)
+# fit the reduced model
+Reduced.model <- lm(LungCap ~ Age + Gender+ Smoke)
+summary(Reduced.model)
+
+# compare the two models by using the Partial F-test
+anova(Reduced.model,Full.model)
+
+``
