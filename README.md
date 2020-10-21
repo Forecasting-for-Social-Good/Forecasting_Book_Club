@@ -58,6 +58,8 @@ The book is online and free. You can access it  [here](https://otexts.com/fpp3/)
 |Week 3 | 29 Sep. 2020 | [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Chapter 4 |[Slides](presentations/Chapter4.pdf) |[Video](https://youtu.be/GkOjn8o7i2E)
 |Week 4 | 06 Oct. 2020 | [Shixuan Wang](https://twitter.com/Shixuan_Wang_)| Chapter 5 |[Slides](presentations/ARIMA_Shixuan.pdf) |[Video](https://www.youtube.com/watch?v=qcrA6vUVPcQ)|[R code](Rcode/ARIMA_Demo.R)
 |Week 5 | 13 Oct. 2020 | [Mingzhe Shi](https://twitter.com/MingzheShi)| Chapter 6 |[Slides](presentations/chapter6.pptx) |[Video](https://youtu.be/TAPg12aWopA)|[R code](Rcode/chapter6.Rmd)
+|Week 6 | 20 Oct. 2020 | [Dejan Mircetic]()| Chapter 7 |[Slides]() |[Video](https://youtu.be/QQEjNXVpKHI)|
+|Week 7 | 27 Oct. 2020 | [Fotios Petropoulos](https://twitter.com/fotpetr)| Chapter 8&9 |[Slides]() |[Video]()|
 
 ### Book 2: Forecasting: Principles and Practice
 
