@@ -1,0 +1,423 @@
+---
+title: "Chapter 1"
+author: "Bahman Rostami-Tabar"
+toc: true
+colortheme: monashwhite
+output:
+  binb::monash:
+    fig_width: 7
+    fig_height: 3.5
+    includes:
+      in_header: header.tex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE)
+library(dplyr)
+library(ggplot2)
+library(fpp3)
+ausbeer <- as_tsibble(fpp2::ausbeer) %>%
+  rename(Time = index, Production = value)
+austa <- as_tsibble(fpp2::austa) %>%
+  rename(Year = index, Visitors = value)
+melsyd <- tsibbledata::ansett %>%
+  filter(Airports == "MEL-SYD")
+```
+
+# What can we forecast?
+
+## Forecasting is difficult
+
+\fullheight{hopecasts2}
+
+## Forecasting is difficult
+
+\fullwidth{bad_forecasts}
+
+## What can we forecast?
+
+\fullwidth{nasdaq-stock-market}
+
+## What can we forecast?
+
+\fullwidth{Forex2}
+
+## What can we forecast?
+
+\fullwidth{pills}
+
+## What can we forecast?
+
+\fullwidth{elecwires2}
+
+## What can we forecast?
+
+\fullheight{AusBOM}
+
+## What can we forecast?
+
+\fullwidth{ts22015}
+
+## What can we forecast?
+
+\fullheight{comet}
+
+## Which is easiest to forecast?
+
+ 1. daily electricity demand in 3 days time
+ 2. timing of next Halley's comet appearance
+ 3. time of sunrise this day next year
+ 4. Google stock price tomorrow
+ 5. Google stock price in 6 months time
+ 6. maximum temperature tomorrow
+ 7. exchange rate of \$US/AUS next week
+ 8. total sales of drugs in Australian pharmacies next month
+
+\pause
+
+ - what makes something easy/difficult to forecast?
+
+## Factors affecting forecastability
+
+Something is easier to forecast if:
+
+ - we have a good understanding of the factors that contribute to it
+ - there is lots of data available;
+ - the forecasts cannot affect the thing we are trying to forecast.
+ - there is relatively low natural/unexplainable random variation.
+ - the future is somewhat similar to the past
+
+# Forecasting, planning and goals
+
+## Forecast
+
+Forecast is : 
+
+about predicting the future as accurately as possible, given all of the information available, including historical data and knowledge of any future events that might impact the forecasts.
+
+## Goals/Targets
+
+are what you would like to have happen. Goals should be linked to forecasts and plans, but this does not always occur. Too often, goals are set without any plan for how to achieve them, and no forecasts for whether they are realistic.
+
+## Planning
+
+is a response to forecasts and goals. Planning involves determining the appropriate actions that are required to make your forecasts match your goals.
+
+## Why do organisations need forecasting?
+
+Why do you need forecast?
+
+- A forecast does not exist for its own purpose. There is at least one reason why we want a forecast, typically multiple reasons;
+- Most often the reason or reasons will make it adamantly clear what to forecast;
+- Tailor forecasting to decisions.
+
+## From operational to strategic forecasting
+
+- Short-term forecasts
+- Medium-term forecasts
+- Long-term forecasts
+
+
+# Determine what to forecast
+## What to forecast
+
+Determine what to forecast
+
+\fontsize{12}{13}\sf
+- Forecast variable/s
+- Time granularity
+- Frequency
+- Horizon
+- Hierarchy/group granularity
+- *How to report accuracy*
+
+
+# Forecasting models and data
+
+## Available data/information
+
+1. Historical data/time series of the forecast variable
+2. Knowledge of any other events/variables
+    + Deterministic variables
+    + Stochastic variables
+    + New information
+
+## Different forecasting models
+
+- The choice of model depends on data availability and forecast situation.
+
+ |              |   No data  |   Past data   | Exogenous variable |
+ |--------------|:----------:|:-------------:|:------------------:|
+ | Judgmental  |      X     |               |                    |
+ | Time series  |            |      X        |                    |
+ | Explanatory  |            |               |         X          |
+
+## Time series
+
+* Time series consist of sequences of observations collected over time.
+* We will assume the time periods are equally spaced.
+
+## Time series data
+
+  - Four-yearly Olympic winning times
+  - Annual Google profits
+  - Quarterly Australian beer production
+  - Monthly rainfall
+  - Weekly retail sales
+  - Daily IBM stock prices
+  - Hourly electricity demand
+  - 5-minute freeway traffic counts
+  - Time-stamped stock transaction data
+    
+## What will happen next?
+
+- `Time series forecasting` is estimating how the sequence of observations will continue into the future.
+
+```{r forecasting, out.width="90%", fig.align='center'}
+ausbeer %>% model(ETS(Production)) %>% forecast(h=20) %>% autoplot(tail(ausbeer, 60), level=NULL, alpha=.01)+
+  geom_vline(xintercept = as.numeric(as.Date("2010-04-01")),col="red", linetype = "longdash")+
+  labs(x ="Time",y="Observation",title = "Time series forecasting")
+```
+
+## Time Series forecasting models
+
+- There are many different kinds of time series models:
+    - Simple methods, e.g. naive
+    - Exponential smoothing
+    - AutoRegressive Integrated Moving Average(ARIMA)
+    - Regression
+    - etc
+
+# How to present forecast
+
+## How to present forecasts?
+
+- Point forecasts
+- Prediction intervals
+- Forecast as probability distribution
+
+A forecast should acknowledge that the future is uncertain and provide information of that uncertainty.
+
+## Point forecasts
+
+```{r p_fcst}
+ausbeer %>% model(ETS(Production)) %>% forecast(h=20) %>% autoplot(tail(ausbeer, 60), level=NULL)+
+  geom_vline(xintercept = as.numeric(as.Date("2010-04-01")),col="red", linetype = "longdash")+
+  labs(x ="Time",y="Observation",title = "Time series forecasting")
+```
+
+## Prediction interval forecasts
+
+```{r f_interval}
+tail(ausbeer, 60) %>% model(ETS(Production)) %>% forecast(h=20) %>% 
+autoplot(tail(ausbeer, 60), level=90)+
+  geom_vline(xintercept = as.numeric(as.Date("2010-04-01")),col="red", linetype = "longdash")+
+  labs(x ="Time",y="Observation",title = "Time series forecasting")+
+  theme(legend.position = "")
+```
+
+# The statistical forecasting perspective
+
+## Sample futures
+
+```{r austa1, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.width=9, fig.height=6}
+fit <- austa %>% model(ETS())
+```
+
+```{r austa1a, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE, fig.width=9, fig.height=6}
+sim <- fit %>% generate(h = 10, times = 10) %>%
+  mutate(
+    replicate = factor(.rep, levels = 1:10, labels = paste("Future", 1:10))
+  )
+ggplot(austa, aes(x = Year)) +
+  geom_line(aes(y = Visitors, colour = "Data")) +
+  geom_line(aes(y = .sim, colour = replicate), data = sim) +
+  ylab("Millions of visitors") + xlab("Year") +
+  ggtitle("Total international visitors to Australia") +
+  scale_colour_manual(values = c("#000000", rainbow(10)),
+                      breaks = c("Data", paste("Future", 1:10)),
+                      name = " ")
+```
+
+## Forecast as probability distribution
+
+```{r fcast_dist}
+  df <- data.frame(x=1:7, y=c(0.05, .30, .41, .10, .08, 0.04, .01))
+    barplot(df$y, df$x, width = 5,space = 0, ylab="Probability", xlab="Observation", names.arg=c("40-49", "50-59", "60-69","70-79","80-89", "90-99","100-109"), legend.text = FALSE)
+```
+
+## Statistical forecasting
+
+\fontsize{14}{16}\sf
+
+- Thing to be forecast: a random variable, $y_t$.
+- Forecast distribution: If ${\cal I}$ is all observations, then $y_{t} |{\cal I}$ means ``the random variable $y_{t}$ given what we know in \rlap{${\cal I}$''.}
+- The ``point forecast'' is the mean (or median) of $y_{t} |{\cal I}$
+- The ``forecast variance'' is $\text{var}[y_{t} |{\cal I}]$
+- A prediction interval or ``interval forecast'' is a range of values of $y_t$ with high \rlap{probability.}
+- With time series, \rlap{${y}_{t|t-1} = y_t | \{y_1,y_2,\dots,y_{t-1}\}$. }
+- $\hat{y}_{T+h|T} =\text{E}[y_{T+h} | y_1,\dots,y_T]$ (an $h$-step forecast taking account of all observations up to time $T$).
+
+## Current situation in your organisation
+
+- Which decisions need to be informed by forecasts?
+- What do you forecast? 
+  - variable
+  - granularity
+  - frequency
+  - horizon
+- How do you present forecasts?
+- Do you need to adjust statistical forecasts?
+  - When and how you do it?
+
+
+# Some case studies
+
+## CASE STUDY 1: Paperware company
+
+\fontsize{12}{14}\sf
+
+\begin{textblock}{7.6}(0.2,1.4)
+\textbf{Problem:} Want forecasts of each of hundreds of
+items. Series can be stationary, trended or seasonal. They currently
+have a large forecasting program written in-house but it doesn't seem
+to produce sensible forecasts. They want me to tell them what is
+wrong and fix it.
+
+\vspace*{0.1cm}
+
+\textbf{Additional information}\vspace*{-0.2cm}\fontsize{12}{13.5}\sf
+\begin{itemize}\itemsep=0cm\parskip=0cm
+\item  Program  written in COBOL making numerical calculations limited. It is not possible to do any optimisation.
+\item Their programmer has little experience in numerical computing.
+\item They employ no statisticians and want the program to produce forecasts \rlap{automatically.}
+\end{itemize}
+\end{textblock}
+
+\placefig{8}{1.4}{width=4.8cm}{tableware2}
+
+
+## CASE STUDY 1: Paperware company
+
+### Methods currently used
+
+A
+: 12 month average
+
+C
+: 6 month average
+
+E
+: straight line regression over last 12 months
+
+G
+: straight line regression over last 6 months
+
+H
+: average slope between last year's and this year's values.
+  (Equivalent to differencing at lag 12 and taking mean.)
+
+I
+: Same as H except over 6 months.
+
+K
+: I couldn't understand the explanation.
+
+## CASE STUDY 2: PBS
+
+\fullwidth{pills}
+
+
+## CASE STUDY 2: PBS
+
+### The Pharmaceutical Benefits Scheme (PBS) is the Australian government drugs subsidy scheme.
+
+  * Many drugs bought from pharmacies are subsidised to allow more equitable access to modern drugs.
+  * The cost to government is determined by the number and types of drugs purchased. Currently nearly 1\% of GDP.
+  * The total cost is budgeted based on forecasts of drug usage.
+
+## CASE STUDY 2: PBS
+
+\fullheight{pbs2}
+
+## CASE STUDY 2: PBS
+
+  * In 2001: \$4.5 billion budget, under-forecasted by \$800 million.
+  * Thousands of products. Seasonal demand.
+  * Subject to covert marketing, volatile products, uncontrollable expenditure.
+  * Although monthly data available for 10 years, data are aggregated to annual values, and only the first three years are used in estimating the forecasts.
+  * All forecasts being done with the \texttt{FORECAST} function in MS-Excel!
+
+
+## CASE STUDY 3: Car fleet company
+
+**Client:** One of Australia's largest car fleet companies
+
+**Problem:** how to forecast resale value of vehicles? How
+should this affect leasing and sales policies?
+
+\pause
+
+### Additional information
+ - They can provide a large amount of data on previous vehicles and their eventual resale values.
+ - The resale values are currently estimated by a group of specialists. They see me as a threat and do not cooperate.
+
+
+
+## CASE STUDY 4: Airline
+
+\fullwidth{ansettlogo}
+
+
+## CASE STUDY 4: Airline
+
+```{r, echo=FALSE, fig.height=5}
+melsyd %>%
+  filter(Class == "Economy") %>%
+  autoplot(Passengers) +
+  labs(
+    title = "Economy class passengers",
+    subtitle = "Melbourne-Sydney",
+    xlab = "Year"
+  ) +
+  ylab("Thousands")
+```
+
+
+## CASE STUDY 4: Airline
+
+```{r, echo=FALSE, fig.height=5}
+melsyd %>%
+  filter(Class == "Economy") %>%
+  autoplot(Passengers) +
+  labs(
+    title = "Economy class passengers",
+    subtitle = "Melbourne-Sydney"
+  ) +
+  ylab("Thousands")
+```
+
+\begin{textblock}{4.2}(7,6.3)
+\begin{alertblock}{}
+Not the real data! Or is it?
+\end{alertblock}
+\end{textblock}
+
+
+
+## CASE STUDY 4: Airline
+
+**Problem:** how to forecast passenger traffic on major routes?
+
+### Additional information
+
+  * They can provide a large amount of data on previous routes.
+  * Traffic is affected by school holidays, special events such as
+the Grand Prix, advertising campaigns, competition behaviour, etc.
+  * They have a highly capable team of people who are able to do
+most of the computing.
+
+
+
+
+
