@@ -66,8 +66,8 @@ The book is online and free. You can access it  [here](https://otexts.com/fpp3/)
 | <div style="width:60px"></div> | <div style="width:60px"></div> | <div style="width:60px"></div>  | <div style="width:420px"></div> |  <div style="width:190px"></div> | <div style="width:190px"></div> |
 |---:|---|---|---|---|---|
 |Week 1 | 16 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Using R |[Blog](https://www.bahmanrt.com/post/intro-furw/)
-|Week 2 | 23 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Chapter 1 |[Slides](presentations/book2/Chapter-1) | [RMarkdown](Rcode/book2/Chapter1.Rmd)
-|Week 2 | 23 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Chapter 2 |[Slides](presentations/book2/Chapter-2) | [RMarkdown](Rcode/book2/Chapter2.Rmd)
+|Week 2 | 23 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Chapter 1 |[Slides](presentations/book2/Chapter-1.pdf) | [RMarkdown](Rcode/book2/Chapter1.Rmd)
+|Week 2 | 23 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Chapter 2 |[Slides](presentations/book2/Chapter-2.pdf) | [RMarkdown](Rcode/book2/Chapter2.Rmd)
 
 # Admin team
 
