@@ -58,16 +58,19 @@ The book is online and free. You can access it  [here](https://otexts.com/fpp3/)
 |Week 3 | 29 Sep. 2020 | [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Chapter 4 |[Slides](presentations/Chapter4.pdf) |[Video](https://youtu.be/GkOjn8o7i2E)
 |Week 4 | 06 Oct. 2020 | [Shixuan Wang](https://twitter.com/Shixuan_Wang_)| Chapter 5 |[Slides](presentations/ARIMA_Shixuan.pdf) |[Video](https://www.youtube.com/watch?v=qcrA6vUVPcQ)|[R code](Rcode/ARIMA_Demo.R)
 |Week 5 | 13 Oct. 2020 | [Mingzhe Shi](https://twitter.com/MingzheShi)| Chapter 6 |[Slides](presentations/chapter6.pptx) |[Video](https://youtu.be/TAPg12aWopA)|[R code](Rcode/chapter6.Rmd)
-|Week 6 | 20 Oct. 2020 | [Dejan Mircetic]()| Chapter 7 |[Slides]() |[Video](https://youtu.be/QQEjNXVpKHI)|
-|Week 7 | 27 Oct. 2020 | [Fotios Petropoulos](https://twitter.com/fotpetr)| Chapter 8&9 |[Slides]() |[Video]()|
+|Week 6 | 20 Oct. 2020 | [Dejan Mircetic](https://www.linkedin.com/in/dejan-mircetic-9b03b896/)| Chapter 7 |[Slides](presentations/chapter7.pdf) |[Video](https://youtu.be/QQEjNXVpKHI)|
+|Week 7 | 27 Oct. 2020 | [Fotios Petropoulos](https://twitter.com/fotpetr)| Chapter 8&9 |[Slides](presentations/chapter89.pdf) |[Video](https://youtu.be/1Jzfoakjwrw)|
+|Week 8 | 03 Nov. 2020 | [Michael Gilliland](https://twitter.com/mvgilliland)| Chapter 10&11 |[Slides]() |[Video](https://youtu.be/S0z1lcY4qyM)|
+
 
 ### Book 2: Forecasting: Principles and Practice
 
-| <div style="width:60px"></div> | <div style="width:60px"></div> | <div style="width:60px"></div>  | <div style="width:420px"></div> |  <div style="width:190px"></div> | <div style="width:190px"></div> |
+| <div style="width:60px"></div> | <div style="width:60px"></div> | <div style="width:60px"></div>  | <div style="width:420px"></div> |  <div style="width:190px"></div> | <div style="width:190px"></div> | <div style="width:190px"></div> |
 |---:|---|---|---|---|---|
 |Week 1 | 16 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Using R |[Blog](https://www.bahmanrt.com/post/intro-furw/)
-|Week 2 | 23 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Chapter 1 |[Slides](presentations/book2/Chapter-1.pdf) | [RMarkdown](Rcode/book2/Chapter1.Rmd)
-|Week 2 | 23 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Chapter 2 |[Slides](presentations/book2/Chapter-2.pdf) | [RMarkdown](Rcode/book2/Chapter2.Rmd)
+|Week 2 | 23 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Chapter 1 |[Slides](presentations/book2/Chapter-1.pdf) | 
+|Week 2 | 23 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Chapter 2 |[Slides](presentations/book2/Chapter-2.pdf) | [RMarkdown](Rcode/book2/2-tsgraphics.Rmd)| [R code](Rcode/book2/2-tsgraphics.R)
+|Week 3 | 30 Oct. 2020| [Arnab Biswas](https://www.linkedin.com/in/arnabb1/)| Remaining of Chp. 2 and Chp. 3 |[Slides](presentations/book2/3-decomposition.pdf) | [RMarkdown](Rcode/book2/3-decomposition.Rmd)| [R code](Rcode/book2/3-decomposition.R)
 
 # Admin team
 
