@@ -60,7 +60,7 @@ The book is online and free. You can access it  [here](https://otexts.com/fpp3/)
 |Week 5 | 13 Oct. 2020 | [Mingzhe Shi](https://twitter.com/MingzheShi)| Chapter 6 |[Slides](presentations/chapter6.pptx) |[Video](https://youtu.be/TAPg12aWopA)|[R code](Rcode/chapter6.Rmd)
 |Week 6 | 20 Oct. 2020 | [Dejan Mircetic](https://www.linkedin.com/in/dejan-mircetic-9b03b896/)| Chapter 7 |[Slides](presentations/chapter7.pdf) |[Video](https://youtu.be/QQEjNXVpKHI)|
 |Week 7 | 27 Oct. 2020 | [Fotios Petropoulos](https://twitter.com/fotpetr)| Chapter 8&9 |[Slides](presentations/chapter89.pdf) |[Video](https://youtu.be/1Jzfoakjwrw)|
-|Week 8 | 03 Nov. 2020 | [Michael Gilliland](https://twitter.com/mvgilliland)| Chapter 10&11 |[Slides]() |[Video](https://youtu.be/S0z1lcY4qyM)|
+|Week 8 | 03 Nov. 2020 | [Michael Gilliland](https://twitter.com/mvgilliland)| Chapter 10&11 |[Slides](presentations/Ch10-11.pdf) |[Video](https://youtu.be/S0z1lcY4qyM)||[Example](presentations/OverfittingExample.pptx)
 
 
 ### Book 2: Forecasting: Principles and Practice
