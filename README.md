@@ -68,9 +68,11 @@ The book is online and free. You can access it  [here](https://otexts.com/fpp3/)
 | <div style="width:60px"></div> | <div style="width:60px"></div> | <div style="width:60px"></div>  | <div style="width:420px"></div> |  <div style="width:190px"></div> | <div style="width:190px"></div> | <div style="width:190px"></div> |
 |---:|---|---|---|---|---|
 |Week 1 | 16 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Using R |[Blog](https://www.bahmanrt.com/post/intro-furw/)
-|Week 2 | 23 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Chapter 1 |[Slides](presentations/book2/Chapter-1.pdf) | 
-|Week 2 | 23 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Chapter 2 |[Slides](presentations/book2/Chapter-2.pdf) | [RMarkdown](Rcode/book2/2-tsgraphics.Rmd)| [R code](Rcode/book2/2-tsgraphics.R)
-|Week 3 | 30 Oct. 2020| [Arnab Biswas](https://www.linkedin.com/in/arnabb1/)| Remaining of Chp. 2 and Chp. 3 |[Slides](presentations/book2/3-decomposition.pdf) | [RMarkdown](Rcode/book2/3-decomposition.Rmd)| [R code](Rcode/book2/3-decomposition.R)
+|Week 2 | 23 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Chapter 1 |[Slides](presentations/book2/Chapter-1.pdf) | |[Video](presentations/book2/Chapter-1.pdf) | 
+|Week 2 | 23 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Chapter 2 |[Slides](presentations/book2/Chapter-2.pdf) |[Video](https://youtu.be/MMtHfiXCLgc) | [RMarkdown](Rcode/book2/2-tsgraphics.Rmd)| [R code](Rcode/book2/2-tsgraphics.R)
+|Week 3 | 30 Oct. 2020| [Arnab Biswas](https://www.linkedin.com/in/arnabb1/)| Remaining of Chp. 2 and Chp. 3 |[Slides](presentations/book2/3-decomposition.pdf) |[Video](https://youtu.be/P-bpr_Vwy4k) | [RMarkdown](Rcode/book2/3-decomposition.Rmd)| [R code](Rcode/book2/3-decomposition.R)
+
+https://youtu.be/P-bpr_Vwy4k
 
 # Admin team
 
