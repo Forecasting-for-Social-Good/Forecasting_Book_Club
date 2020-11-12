@@ -1,0 +1,536 @@
+---
+title: "Chapter 4- Time series features"
+subtitle: "<br> `r emo::ji('link')` [Forecasting Book Club](https://github.com/Forecasting-for-Social-Good/Forecasting_Book_Club)"
+author: "<br> <br> Dr. Bahman Rostami-Tabar <br>"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["xaringan-themer.css", "slides-style.css"]
+    nature:
+      highlightStyle: solarized-light
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>
+---
+
+```{r child = "../setup.Rmd"}
+```
+
+```{r set-theme, include=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  primary_color      = "#0077bb", # pantone classic blue0F4C81
+  secondary_color    = "#33BBEE", # pantone baby blueB6CADA
+  header_font_google = google_font("Raleway"),
+  text_font_google   = google_font("Raleway", "300", "300i"),
+  code_font_google   = google_font("Source Code Pro"),
+  text_font_size     = "30px"
+)
+```
+
+```{r package, include=FALSE}
+library(tidyverse)
+library(fpp3)
+```
+
+## Outline
+
+- Some simple statistics
+- ACF features
+- STL Features
+- Other features
+- Exploring Australian tourism data
+
+---
+
+## Time series feature
+
+
+- are numerical summaries computed from the series, e.g. autocorrelation, trend.
+- The `feasts` package in R includes functions for computing FEatures And Statistics from Time Series (hence the name).
+
+---
+
+## When time series feature are useful?
+
+- If you work with many time series
+- If you don't know anything about features/characteristics of your time series (one or many)
+- We can compute many different features on many different time series, and use them to explore the properties of the series.
+
+---
+
+class: middle
+
+.pull-left[
+  .huge-text[Some simple statistics]
+]
+.pull-right[
+  .larger[
+  
+  ]
+]
+
+
+---
+class: middle
+
+## Extract features using `feast` package
+
+.pull-left[
+.large[
+.blue[your_data] %>% 
+.red[features(].yellow[your_measurement], .pink[function].red[)]
+]]
+
+--
+.pull-right[
+.large[
+.blue[tourism] %>% 
+.red[features(].yellow[Trips], .pink[mean].red[)]
+]
+]
+---
+.pull-left-narrow[
+### mean
+```{r echo=TRUE, message=FALSE, eval=FALSE}
+tourism %>% features(Trips, mean)
+```
+]
+
+.pull-right-wide[
+```{r echo=FALSE, message=FALSE}
+tourism %>% features(Trips, mean)
+```
+]
+
+---
+.pull-left-narrow[
+###  mean
+```{r echo=TRUE, message=FALSE, eval=FALSE}
+tourism %>% 
+  features(Trips, list(mean=mean)) %>% 
+  arrange(mean)
+```
+]
+
+.pull-right-wide[
+```{r echo=FALSE, message=FALSE}
+tourism %>% features(Trips, list(mean=mean)) %>% arrange(mean)
+```
+]
+
+---
+.pull-left-narrow[
+###   Five summary statistics 
+```{r echo=TRUE, message=FALSE, eval=FALSE}
+tourism %>% 
+  features(Trips, 
+           quantile, 
+           prob=seq(0,1,by=0.25))
+```
+]
+
+.pull-right-wide[
+```{r echo=FALSE, message=FALSE}
+tourism %>% 
+  features(Trips, quantile, prob=seq(0,1,by=0.25))
+```
+]
+
+---
+class: middle
+
+.pull-left[
+  .huge-text[ACF features]
+]
+.pull-right[
+  .large[
+  
+  ]
+]
+
+---
+
+## ACF features
+
+- All the autocorrelations of a series
+- the sum of the first ten squared autocorrelation coefficients is a useful summary of how much autocorrelation there is in a series, regardless of lag.
+- autocorrelations of transformations of a time series.
+
+    - “difference” the data and create a new time series consisting of the differences between consecutive observations. Then we can compute the autocorrelations of this new differenced series.
+    
+- Occasionally, we may compute the differences of the differences. 
+- Another related approach is to compute seasonal differences of a series.
+
+
+---
+class: middle
+
+## `feat_acf()` function
+
+The `feat_acf()` function will return the following features:
+
+- the first autocorrelation coefficient from the original data;
+- the sum of square of the first ten autocorrelation coefficients from the original data;
+- the first autocorrelation coefficient from the differenced data;
+- the sum of square of the first ten autocorrelation coefficients from the differenced data;
+- the first autocorrelation coefficient from the twice differenced data;
+- the sum of square of the first ten autocorrelation coefficients from the twice differenced data;
+- For seasonal data, the autocorrelation coefficient at the first seasonal lag is also returned.
+
+
+---
+.pull-left-narrow[
+###   ACF features with Australian tourism data 
+```{r echo=TRUE, message=FALSE, eval=FALSE}
+tourism %>% 
+  features(Trips, feat_acf)
+```
+]
+
+.pull-right-wide[
+```{r echo=FALSE, message=FALSE}
+tourism %>% 
+  features(Trips, feat_acf)
+```
+]
+
+---
+class: middle
+
+.pull-left[
+  .huge-text[STL Features]
+]
+.pull-right[
+  .large[
+  
+  ]
+]
+
+---
+
+## STL features: trend and seasonality
+
+- The STL decompositions discussed in Chapter 3.
+
+A time series decomposition can be used to measure the strength of trend and seasonality in a time series. Recall that the decomposition is written as: $y_t = T_t + S_{t} + R_t,$
+
+- **measure of the strength of the trend:** $F_T = \max\left(0, 1 - \frac{\text{Var}(R_t)}{\text{Var}(T_t+R_t)}\right).$
+
+- **measure of the strength of the seasonality:** $F_S = \max\left(0, 1 - \frac{\text{Var}(R_t)}{\text{Var}(S_{t}+R_t)}\right).$
+
+---
+
+## feat_stl() function
+
+The `feat_stl()` function returns several more features:
+
+- *`seasonal_peak`* measures timing of peaks — which season (e.g.month or quarter) contains the largest seasonal component 
+- *`seasonal_troughs`* measures timing of troughs — which season (e.g.month or quarter) contains the smallest seasonal component.
+- *`spikiness`* measures the prevalence of spikes in the remainder component
+- *`linearity`* measures the linearity of the trend component of the STL decomposition.
+- *`curvature`* measures the curvature of the trend component of the STL decomposition.
+- *`stl_e_acf1`* is the first autocorrelation coefficient of the remainder series.
+- *`stl_e_acf10`*: is the sum of squares of the first ten autocorrelation coefficients of the remainder series.
+
+
+---
+.pull-left-narrow[
+###   STL features with Australian tourism data 
+```{r echo=TRUE, message=FALSE, eval=FALSE}
+tourism %>%
+  features(Trips, feat_stl)
+```
+]
+
+.pull-right-wide[
+```{r echo=FALSE, message=FALSE}
+tourism %>%
+  features(Trips, feat_stl)
+```
+]
+
+
+---
+.pull-left[
+###   STL features with Australian tourism data 
+```{r echo=TRUE, message=FALSE, eval=FALSE}
+tourism %>%
+  features(Trips, feat_stl) %>%
+  ggplot(aes(x=trend_strength, 
+             y=seasonal_strength_year, 
+             col=Purpose)) +
+    geom_point() + 
+  facet_wrap(vars(State))
+```
+]
+
+--
+
+.pull-right[
+```{r echo=FALSE, message=FALSE}
+tourism %>%
+  features(Trips, feat_stl) %>%
+  ggplot(aes(x=trend_strength, 
+             y=seasonal_strength_year, 
+             col=Purpose)) +
+    geom_point() + 
+  facet_wrap(vars(State))
+```
+]
+
+---
+.pull-left[
+###   Identify most seasonal series with Australian tourism data 
+```{r echo=TRUE, message=FALSE, eval=FALSE}
+tourism %>%
+  features(Trips, feat_stl) %>%
+  filter(seasonal_strength_year == 
+           max(seasonal_strength_year)) %>%
+  left_join(tourism, 
+            by = c("State","Region","Purpose")) %>%
+  ggplot(aes(x = Quarter, y = Trips)) + 
+  geom_line() +
+    facet_grid(vars(State,Region,Purpose))
+```
+]
+
+--
+
+.pull-right[
+```{r echo=FALSE, message=FALSE}
+tourism %>%
+  features(Trips, feat_stl) %>%
+  filter(seasonal_strength_year == 
+           max(seasonal_strength_year)) %>%
+  left_join(tourism, 
+            by = c("State","Region","Purpose")) %>%
+  ggplot(aes(x = Quarter, y = Trips)) + 
+  geom_line() +
+    facet_grid(vars(State,Region,Purpose))
+```
+]
+
+---
+class: middle
+
+.pull-left[
+  .huge-text[Other Features]
+]
+.pull-right[
+  .large[
+  
+  ]
+]
+
+---
+
+## The remaining features in the `feasts` package
+
+- *`feat_spectral`* will compute the (Shannon) spectral entropy of a time series, which is a measure of how easy the series is to forecast.
+- *`coef_hurst`* will calculate the Hurst coefficient of a time series which is a measure of “long memory”. A series with long memory will have significant autocorrelations for many lags.
+- *`box_pierce`* gives the Box-Pierce statistic for testing if a time series is white noise, and the corresponding p-value.
+- *`ljung_box`* gives the Ljung-Box statistic for testing if a time series is white noise, and the corresponding p-value.
+- *`feat_pacf`* function contains several features involving partial autocorrelations
+- *`unitroot_kpss`* gives the Kwiatkowski-Phillips-Schmidt-Shin (KPSS) statistic for testing if a series is stationary, and the corresponding p-value.
+- *`unitroot_pp`* gives the Phillips-Perron statistic for testing if a series is non-stationary, and the corresponding p-value.
+
+---
+
+## The remaining features in the `feasts` package (continue)
+
+- *`unitroot_ndiffs`* gives the number of differences required to lead to a stationary series based on the KPSS test.
+- *`unitroot_nsdiffs`* gives the number of seasonal differences required to make a series stationary.
+- *`var_tiled_mean`* gives the variances of the “tiled means” (i.e., the means of consecutive non-overlapping blocks of observations).
+- *`var_tiled_var`* gives the variances of the “tiled variances” (i.e., the variances of consecutive non-overlapping blocks of observations). 
+- *`shift_level_max`* finds the largest mean shift between two consecutive sliding windows of the time series.
+- *`shift_level_index`* gives the index at which the largest mean shift occurs.
+- *`shift_var_max`* finds the largest variance shift between two consecutive sliding windows of the time series.
+
+---
+
+## The remaining features in the `feasts` package (continue)
+
+- *`shift_var_index`* gives the index at which the largest mean shift occurs
+- *`shift_kl_max`* finds the largest distributional shift (based on the Kulback-Leibler divergence) between two consecutive sliding windows of the time series.
+- *`shift_kl_index`* gives the index at which the largest KL shift occurs.
+- *`n_crossing_points`* computes the number of times a time series crosses the median.
+- *`longest_flat_spot`* computes the number of sections of the data where the series is relatively unchanging.
+- *`stat_arch_lm`* returns the statistic based on the Lagrange Multiplier (LM) test of Engle (1982) for autoregressive conditional heteroscedasticity (ARCH).
+- *`guerrero*` computes the optimal $λ$ value for a Box-Cox transformation using the Guerrero method
+
+---
+class: middle
+
+.pull-left[
+  .huge-text[Exploring Australian tourism data]
+]
+.pull-right[
+  .large[
+  
+  ]
+]
+
+---
+.pull-left-narrow[
+###   Exploring Australian tourism data 
+```{r echo=TRUE, message=FALSE, eval=FALSE}
+tourism_features <- tourism %>%
+  features(Trips, 
+           feature_set(pkgs="feasts"))
+tourism_features
+```
+]
+
+.pull-right-wide[
+```{r echo=FALSE, message=FALSE}
+tourism_features <- tourism %>%
+  features(Trips, 
+           feature_set(pkgs="feasts"))
+tourism_features
+```
+]
+
+---
+.pull-left[
+###   all the features involving seasonality
+```{r echo=TRUE, message=FALSE, eval=FALSE}
+tourism_features %>%
+  select_at(vars(contains("season"), 
+                 Purpose)) %>%
+  mutate(
+    seasonal_peak_year = 
+      glue::glue("Q{seasonal_peak_year+1}"),
+    seasonal_trough_year = 
+      glue::glue("Q{seasonal_trough_year+1}"),
+  ) %>%
+  GGally::ggpairs(mapping = 
+                    aes(colour=Purpose))
+```
+]
+
+.pull-right[
+```{r echo=FALSE, message=FALSE}
+tourism_features %>%
+  select_at(vars(contains("season"), Purpose)) %>%
+  mutate(
+    seasonal_peak_year = glue::glue("Q{seasonal_peak_year+1}"),
+    seasonal_trough_year = glue::glue("Q{seasonal_trough_year+1}"),
+  ) %>%
+  GGally::ggpairs(mapping = aes(colour=Purpose))
+```
+]
+
+---
+
+## Dimension reduction technique
+
+- It is difficult to explore more than a handful of variables seperately.
+- A useful way to handle many more variables is to use a dimension reduction technique such as `principal components`. 
+- This gives linear combinations of variables that explain the most variation in the original data. We can compute the principal components of the tourism features as follows.
+
+---
+.pull-left[
+###   principal components for Australian toursime
+```{r echo=TRUE, message=FALSE, eval=FALSE}
+library(broom)
+pcs <- tourism_features %>%
+  select(-State, -Region, -Purpose) %>%
+  prcomp(scale=TRUE) %>%
+  augment(tourism_features)
+pcs %>%
+  ggplot(aes(x=.fittedPC1, 
+             y=.fittedPC2, 
+             col=Purpose)) +
+  geom_point() + theme(aspect.ratio=1)
+```
+]
+
+.pull-right[
+```{r echo=FALSE, message=FALSE}
+library(broom)
+pcs <- tourism_features %>%
+  select(-State, -Region, -Purpose) %>%
+  prcomp(scale=TRUE) %>%
+  augment(tourism_features)
+pcs %>%
+  ggplot(aes(x=.fittedPC1, 
+             y=.fittedPC2, 
+             col=Purpose)) +
+  geom_point() + theme(aspect.ratio=1)
+```
+]
+
+---
+.pull-left[
+###   Extract unusual series
+```{r echo=TRUE, message=FALSE, eval=FALSE}
+outliers <- pcs %>%
+  filter(.fittedPC1 > 10.5) %>%
+  select(Region, 
+         State, 
+         Purpose, 
+         .fittedPC1, 
+         .fittedPC2)
+outliers
+```
+]
+
+.pull-right[
+```{r echo=FALSE, message=FALSE}
+outliers <- pcs %>%
+  filter(.fittedPC1 > 10.5) %>%
+  select(Region, 
+         State, 
+         Purpose, 
+         .fittedPC1, 
+         .fittedPC2)
+outliers
+```
+]
+
+---
+.pull-left[
+###   Plot unusual series
+```{r echo=TRUE, message=FALSE, eval=FALSE}
+outliers %>%
+  left_join(tourism, 
+            by = c("State", "Region", "Purpose")) %>%
+  mutate(Series = 
+           glue::glue("{State}", "{Region}", "{Purpose}", 
+                      .sep = "\n\n")) %>%
+  ggplot(aes(x = Quarter, y = Trips)) +
+    geom_line() +
+    facet_grid(Series ~ ., scales='free') +
+    ggtitle("Outlying time series in PC space")
+```
+]
+
+.pull-right[
+```{r echo=FALSE, message=FALSE}
+outliers %>%
+  left_join(tourism, by = c("State", "Region", "Purpose")) %>%
+  mutate(Series = glue::glue("{State}", "{Region}", "{Purpose}", .sep = "\n\n")) %>%
+  ggplot(aes(x = Quarter, y = Trips)) +
+    geom_line() +
+    facet_grid(Series ~ ., scales='free') +
+    ggtitle("Outlying time series in PC space")
+```
+]
+
+---
+
+.hand-large[thank you!]
+
+- Slides are available at [here](https://github.com/Forecasting-for-Social-Good/Forecasting_Book_Club)
+
+- Email [rostami-tabarb@cardiff.ac.uk](mailto:rostami-tabarb@cardiff.ac.uk)
+
+- Website [www.bahmanrt.com](www.bahmanrt.com)
+
+- Twitter [@Bahman_R_T](https://twitter.com/Bahman_R_T)
