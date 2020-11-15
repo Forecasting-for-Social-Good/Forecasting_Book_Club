@@ -71,8 +71,8 @@ The book is online and free. You can access it  [here](https://otexts.com/fpp3/)
 |Week 2 | 23 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Chapter 1 |[Slides](presentations/book2/Chapter-1.pdf) | [Video](presentations/book2/Chapter-1.pdf) | 
 |Week 2 | 23 Oct. 2020| [Bahman Rostami-Tabar](https://twitter.com/Bahman_R_T)| Chapter 2 |[Slides](presentations/book2/Chapter-2.pdf) |[Video](https://youtu.be/MMtHfiXCLgc) | [RMarkdown](Rcode/book2/2-tsgraphics.Rmd)| [R code](Rcode/book2/2-tsgraphics.R)
 |Week 3 | 30 Oct. 2020| [Arnab Biswas](https://www.linkedin.com/in/arnabb1/)| Remaining of Chp. 2 and Chp. 3 |[Slides](presentations/book2/3-decomposition.pdf) |[Video](https://youtu.be/P-bpr_Vwy4k) | [RMarkdown](Rcode/book2/3-decomposition.Rmd)| [R code](Rcode/book2/3-decomposition.R)
-|Week 3 | 06 Nov. 2020| [Bahman Rostami Tabar](https://twitter.com/Bahman_R_T)| Chp. 4 |[Slides](presentations/book2/4-fpp3-ch4.pdf) |[Video](https://youtu.be/pSdFzYsR0rQ) | [RMarkdown](presentations/book2/4-fpp3-ch4.Rmd)|
-|Week 4 | 13 Nov. 2020| [Bahman Rostami Tabar](https://twitter.com/Bahman_R_T)| Chp. 5 |[Slides](presentations/book2/5-toolbox.pdf) |[Video](https://youtu.be/6mXUz_l3mPQ) | [RMarkdown](presentations/book2/5-toolbox.Rmd)|| [R code](presentations/book2/5-toolbox.R)
+|Week 4 | 06 Nov. 2020| [Bahman Rostami Tabar](https://twitter.com/Bahman_R_T)| Chp. 4 |[Slides](presentations/book2/4-fpp3-ch4.pdf) |[Video](https://youtu.be/pSdFzYsR0rQ) | [RMarkdown](presentations/book2/4-fpp3-ch4.Rmd)|
+|Week 5 | 13 Nov. 2020| [Bahman Rostami Tabar](https://twitter.com/Bahman_R_T)| Chp. 5 |[Slides](presentations/book2/5-toolbox.pdf) |[Video](https://youtu.be/6mXUz_l3mPQ) | [RMarkdown](presentations/book2/5-toolbox.Rmd)| [R code](presentations/book2/5-toolbox.R)
 
 # Admin team
 
