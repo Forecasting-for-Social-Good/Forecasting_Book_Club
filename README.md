@@ -73,6 +73,7 @@ The book is online and free. You can access it  [here](https://otexts.com/fpp3/)
 |Week 3 | 30 Oct. 2020| [Arnab Biswas](https://www.linkedin.com/in/arnabb1/)| Remaining of Chp. 2 and Chp. 3 |[Slides](presentations/book2/3-decomposition.pdf) |[Video](https://youtu.be/P-bpr_Vwy4k) | [RMarkdown](Rcode/book2/3-decomposition.Rmd)| [R code](Rcode/book2/3-decomposition.R)
 |Week 4 | 06 Nov. 2020| [Bahman Rostami Tabar](https://twitter.com/Bahman_R_T)| Chp. 4 |[Slides](presentations/book2/4-fpp3-ch4.pdf) |[Video](https://youtu.be/pSdFzYsR0rQ) | [RMarkdown](presentations/book2/4-fpp3-ch4.Rmd)|
 |Week 5 | 13 Nov. 2020| [Bahman Rostami Tabar](https://twitter.com/Bahman_R_T)| Chp. 5 |[Slides](presentations/book2/5-toolbox.pdf) |[Video](https://youtu.be/6mXUz_l3mPQ) | [RMarkdown](presentations/book2/5-toolbox.Rmd)| [R code](presentations/book2/5-toolbox.R)
+|Week 6 | 13 Nov. 2020| [Dilek Onkel](https://twitter.com/dilekonkal)| Chp. 6 |[Slides](presentations/book2/chapter6.pptx) |[Video](https://youtu.be/4cjU4NV1tkk) |
 
 # Admin team
 
