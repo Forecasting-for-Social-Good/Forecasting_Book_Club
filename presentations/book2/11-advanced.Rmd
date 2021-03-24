@@ -1,0 +1,331 @@
+---
+title: "Chapter 12"
+author: ""
+date: "29 January 2021"
+toc: true
+colortheme: monashwhite
+output:
+  binb::monash:
+    fig_width: 7
+    fig_height: 3.5
+    includes:
+      in_header: header.tex
+---
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, cache=TRUE, warning=FALSE, message=FALSE)
+library(tidyverse)
+library(fable)
+library(tsibble)
+library(tsibbledata)
+library(feasts)
+library(lubridate)
+library(fpp3)
+```
+
+# Complex seasonality
+
+## Examples
+
+```{r callsdata, message=FALSE, warning=FALSE}
+bank_calls <- read_tsv("http://robjhyndman.com/data/callcenter.txt") %>%
+  gather("date", "volume", -X1) %>% transmute(
+    time = X1, date = as.Date(date, format = "%d/%m/%Y"),
+    datetime = as_datetime(date) + time, volume) %>%
+  as_tsibble(index = datetime) %>% 
+  mutate(Calls=volume)
+bank_calls %>% 
+  fill_gaps() %>% 
+  autoplot(Calls) +
+  labs(x = "Weeks", y = "Call volume",
+       title = "5 minute call volume at North American bank")
+
+bank_calls %>% 
+  fill_gaps() %>% 
+  head(8*845) %>% 
+  autoplot(Calls) +
+  labs(x = "Weeks", y = "Call volume",
+       title = "5 minute call volume at North American bank")
+```
+
+## Examples
+
+```{r, fig.height=5}
+calls <-bank_calls %>%
+  mutate(t = row_number()) %>%
+  update_tsibble(index = t, regular = TRUE)
+
+calls %>%
+  model(STL(sqrt(Calls) ~ season(period = 169) + season(period = 5*169),
+            robust = TRUE)) %>%
+  components() %>%
+  autoplot() + labs(x = "Observation")
+```
+
+##Forecasts from STL+ETS decomposition
+
+```{r label, options}
+my_dcmp_spec <- decomposition_model(
+  STL(sqrt(Calls) ~ season(period = 169) + season(period = 5*169),
+      robust = TRUE),
+  ETS(season_adjust ~ season("N"))
+)
+fc <- calls %>%
+  model(my_dcmp_spec) %>%
+  forecast(h = 5 * 169)
+
+# Add correct time stamps to fable
+fc_with_times <-bank_calls %>%
+  new_data(n = 7 * 24 * 60 / 5) %>%
+  mutate(time = format(datetime, format = "%H:%M:%S")) %>%
+  filter(
+    time %in% format(calls$datetime, format = "%H:%M:%S"),
+    wday(datetime, week_start = 1) <= 5
+  ) %>%
+  mutate(t = row_number() + max(calls$t)) %>%
+  left_join(fc, by = "t") %>%
+  as_fable(response = "Calls", distribution = Calls)
+
+# Plot results with last 3 weeks of data
+fc_with_times %>%
+  fill_gaps() %>%
+  autoplot(bank_calls %>% tail(14 * 169) %>% fill_gaps()) +
+  labs(x = "Date", y = "Call volume")
+```
+## Dynamic harmonic regression with multiple seasonal periods
+
+
+
+
+```{r label, options}
+fit <- calls %>%
+  model(
+    dhr = ARIMA(sqrt(Calls) ~ PDQ(0, 0, 0) + pdq(d = 0) +
+                fourier(period = 169, K = 10) + fourier(period = 5*169, K = 5))
+  )
+fc <- fit %>% forecast(h = 5 * 169)
+autoplot(fc)
+# Add correct time stamps to fable
+fc_with_times <- bank_calls %>%
+  new_data(n = 7 * 24 * 60 / 5) %>%
+  mutate(time = format(DateTime, format = "%H:%M:%S")) %>%
+  filter(
+    time %in% format(bank_calls$DateTime, format = "%H:%M:%S"),
+    wday(DateTime, week_start = 1) <= 5
+  ) %>%
+  mutate(t = row_number() + max(calls$t)) %>%
+  left_join(fc, by = "t") %>%
+  as_fable(response = "Calls", distribution = Calls)
+
+# Plot results with last 3 weeks of data
+fc_with_times %>%
+  fill_gaps() %>%
+  autoplot(bank_calls %>% tail(14 * 169) %>% fill_gaps()) +
+  labs(x = "Date", y = "Call volume")
+```
+Example: Electricity demand
+
+```{r elec}
+vic_elec %>%
+  pivot_longer(Demand:Temperature, names_to = "Series") %>%
+  ggplot(aes(x = Time, y = value)) +
+  geom_line() +
+  facet_grid(rows = vars(Series), scales = "free_y") +
+  labs(x = "Time", y = "")
+```
+
+```{r label, options}
+elec <- vic_elec %>%
+  mutate(
+    DOW = wday(Date, label = TRUE),
+    Working_Day = !Holiday & !(DOW %in% c("Sat", "Sun")),
+    Cooling = pmax(Temperature, 18)
+  )
+elec %>%
+  ggplot(aes(x = Temperature, y = Demand, col = Working_Day)) +
+  geom_point(alpha = 0.6) +
+  labs(x = "Temperature (degrees Celsius)", y = "Demand (MWh)")
+```
+
+```{r label, options}
+fit <- elec %>%
+  model(
+    ARIMA(Demand ~ PDQ(0, 0, 0) + pdq(d = 0) +
+          Temperature + Cooling + Working_Day +
+          fourier(period = "day", K = 10) +
+          fourier(period = "week", K = 5) +
+          fourier(period = "year", K = 3))
+  )
+```
+
+```{r label, options}
+temps <- tail(elec, 2 * 48)
+fc <- fit %>%
+  forecast(new_data = tail(elec, 2 * 48))
+fc %>%
+  autoplot(elec %>% tail(10 * 48)) +
+  labs(x = "Date", y = "Demand (MWh)")
+```
+
+```{r label, options}
+fit %>% gg_tsresiduals()
+```
+
+# Prophet model
+
+## Example: quarterly cement production
+
+```{r label, options}
+library(fable.prophet)
+cement <- aus_production %>%
+  filter(year(Quarter) >= 1988)
+train <- cement %>%
+  filter(year(Quarter) <= 2007)
+fit <- train %>%
+  model(
+    arima = ARIMA(Cement),
+    ets = ETS(Cement),
+    prophet = prophet(Cement ~ season(period = 4, order = 2, type = "multiplicative"))
+  )
+```
+
+
+```{r label, options}
+fc <- fit %>% forecast(h = "2 years 6 months")
+fc %>% autoplot(cement)
+```
+
+```{r label, options}
+fc %>% accuracy(cement)
+```
+
+## Example: half-hourly electricity demand
+
+```{r label, options}
+fit <- elec %>%
+  model(
+    prophet(Demand ~ Temperature + Cooling + Working_Day +
+            season(period = "day", order = 10) +
+            season(period = "week", order = 5) +
+            season(period = "year", order = 3))
+  )
+fit %>%
+  components() %>%
+  autoplot()
+```
+
+```{r label, options}
+fit %>% gg_tsresiduals()
+```
+
+```{r label, options}
+temps <- tail(elec, 2 * 48)
+fc <- fit %>%
+  forecast(new_data = tail(elec, 2 * 48))
+fc %>%
+  autoplot(elec %>% tail(10 * 48)) +
+  labs(x = "Date", y = "Demand (MWh)")
+```
+
+# Vector autoregressions
+
+```{r label, options}
+fit <- us_change %>%
+  model(
+    aicc = VAR(vars(Consumption, Income)),
+    bic = VAR(vars(Consumption, Income), ic = "bic")
+  )
+fit
+glance(fit)
+
+```
+
+```{r label, options}
+fit %>%
+  augment() %>%
+  ACF(.innov) %>%
+  autoplot()
+```
+
+```{r label, options}
+fit %>%
+  select(aicc) %>%
+  forecast() %>%
+  autoplot(us_change %>% filter(year(Quarter) > 2010))
+```
+
+#  Neural network models
+
+## Example: sunspots
+
+```{r label, options}
+sunspots <- sunspot.year %>% as_tsibble()
+sunspots %>%
+  model(NNETAR(sqrt(value))) %>%
+  forecast(h = 30) %>%
+  autoplot(sunspots)
+```
+
+
+```{r label, options}
+fit <- sunspots %>% as_tsibble() %>% 
+  model(NNETAR(sqrt(value)))
+fit %>%
+  generate(times = 9, h = 30) %>%
+  autoplot(.sim) +
+  autolayer(sunspots, value) +
+  theme(legend.position = "none")
+```
+
+# Bootstrapping and bagging
+
+```{r label, options}
+cement <- aus_production %>%
+  filter(year(Quarter) >= 1988) %>%
+  select(Quarter, Cement)
+cement_stl <- cement %>%
+  model(stl = STL(Cement))
+cement_stl %>%
+  components() %>%
+  autoplot()
+```
+
+```{r label, options}
+cement_stl %>%
+  generate(new_data = cement, times = 10, bootstrap_block_size = 8) %>%
+  autoplot(.sim) +
+  autolayer(cement, Cement) +
+  guides(colour = "none") +
+  labs(y = "Bootstrapped series")
+```
+
+## Bagged forecast
+
+```{r label, options}
+sim <- cement_stl %>%
+  generate(new_data = cement, times = 100, bootstrap_block_size = 8) %>%
+  select(-.model, -Cement)
+```
+
+```{r label, options}
+ets_forecasts <- sim %>%
+  model(ets = ETS(.sim)) %>%
+  forecast(h = 12)
+ets_forecasts %>%
+  update_tsibble(key = .rep) %>%
+  autoplot(.mean) +
+  autolayer(cement, Cement) +
+  guides(col = FALSE)
+```
+
+```{r label, options}
+bagged <- ets_forecasts %>%
+  summarise(bagged_mean = mean(.mean))
+cement %>%
+  model(ets = ETS(Cement)) %>%
+  forecast(h = 12) %>%
+  autoplot(cement) +
+  autolayer(bagged, bagged_mean, col = "red")
+```
+

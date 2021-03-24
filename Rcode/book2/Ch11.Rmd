@@ -1,0 +1,308 @@
+---
+title: "Ch11"
+author: "George Athanasopoulos"
+date: "15/01/2021"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(fpp3)
+library(tictoc)
+```
+
+# Intro 
+
+- We will learn/review hierarchical and grouped structures
+- The concept of coherence
+- Learn some useful commands/functions within the fable package 
+
+## Hierarchical and grouped time series {#hts}
+
+### Hierarchical time series {-}
+
+### Example: Australian tourism hierarchy {-}
+
+```{r recode}
+tourism <- tsibble::tourism %>%
+  mutate(State = recode(State,
+    `New South Wales` = "NSW",
+    `Northern Territory` = "NT",
+    `Queensland` = "QLD",
+    `South Australia` = "SA",
+    `Tasmania` = "TAS",
+    `Victoria` = "VIC",
+    `Western Australia` = "WA"
+  ))
+
+tourism
+# is a tsibble with 304 series 
+# with Key variables Region, State, Purpose
+tourism$Quarter %>% range()
+```
+
+- The first important function `aggregate_key()`
+- Use `parent/child` specification for hierarchical/nested time series.
+
+```{r nested, echo=TRUE}
+tourism_hts <- tourism %>%
+  aggregate_key(State / Region, Trips = sum(Trips))
+
+tourism_hts
+# additional rows corresponding to state and national aggregations for each quarter.
+# note <chr*> signal an aggregation structure
+```
+
+- The second important function `is_aggregated()` which allows you to filter through aggregation structures
+
+```{r tourismStates, fig.width=9, fig.asp=0.7, fig.cap="Domestic overnight trips from 1998Q1 to 2017Q4 aggregated by state.", warning=FALSE, message=FALSE, echo=TRUE}
+tourism_hts %>%
+  filter(is_aggregated(Region)) %>% # select everything but not Region
+  autoplot(Trips) +
+  labs(y = "Trips ('000)",
+       title = "Australian tourism: national total and states") +
+  facet_wrap(vars(State), scales = "free_y", ncol = 3) +
+  theme(legend.position = "none")
+```
+
+Let's have another look using `filter()` - showing some important dynamics.
+
+```{r seasonStates, echo=FALSE, fig.cap="Seasonal plots for overnight trips for the Northern Territory and Queensland, and Tasmania and Victoria highlighting the contrast in seasonal patterns between northern and southern states in Australia.", fig.asp=0.5, fig.width=7, out.width="80%", message=FALSE, warning=FALSE}
+tourism_hts %>%
+  filter(State == "NT" | State == "TAS" |
+           State == "QLD" | State == "VIC", is_aggregated(Region)) %>%
+  select(-Region) %>% # if you don't do this R will complain
+  gg_season(Trips) +
+  facet_wrap(vars(as.character(State)), ncol = 2, scales = "free_y")+
+  labs(y = "Trips ('000)")
+```
+These show the importance of modelling all series individually as signals will be lost at the aggregate level or too noisy at levels below as we see in Figure 11.5.
+
+### Grouped time series {-}
+
+### Example: Australian prison population {-}
+
+- Using `aggregate_key()` for grouped/crossed structure
+- `attribute1*attribute2`
+
+```{r prisongts, fig.width=9, fig.asp = .7, echo=FALSE, fig.cap="Total Australian quarterly adult prison population, disaggregated by state, by legal status, and by gender.", warning=FALSE, message=FALSE, fig.pos="b", fig.env="figure*"}
+
+prison <- readr::read_csv("https://OTexts.com/fpp3/extrafiles/prison_population.csv") %>%
+  mutate(Quarter = yearquarter(Date)) %>%
+  select(-Date) %>%
+  as_tsibble(key = c(Gender, Legal, State, Indigenous), index = Quarter) %>%
+  relocate(Quarter) # just relocating Quarter as the first column
+
+prison
+# 64 series 8*2*2*2
+
+prison_gts <- prison %>%
+  aggregate_key(Gender * Legal * State, Count = sum(Count) / 1e3)
+
+
+prison_gts
+# now 81 series 
+# Aggregate 1 series
+# 1-way 8+2+2 series
+# 2-way 8*2+8*2+2*2=36
+# Bottom-level 8*2*2=32 series
+# Total: 81=1+(8+2+2)+(8*2+2*2+2*8)+32
+```
+
+We'll look more carefully at these when we do the forecasting.
+
+### Mixed hierarchical and grouped structure {-}
+
+- nested and crossed disaggregating factors
+
+```{r mixed, echo=TRUE}
+tourism_full <- tourism %>%
+  aggregate_key((State / Region) * Purpose, Trips = sum(Trips))
+
+tourism_full 
+# 425 series
+# 85 from hierarchical
+# 340 = 85*4 from crossings
+```
+
+Lets have a look at the purpose of travel series 
+
+```{r mixed-purpose, fig.width=10, fig.asp = 0.6, echo=FALSE, fig.cap="Australian domestic overnight trips from 1998Q1 to 2017Q4 disaggregated by purpose of travel.", message=FALSE, warning=FALSE, dependson="mixed",fig.env="figure*"}
+tourism_full %>%
+  filter(is_aggregated(State), 
+         is_aggregated(Region), 
+         !is_aggregated(Purpose)) %>%
+  ggplot(aes(x = Quarter, y = Trips,
+             group = as.character(Purpose), colour = as.character(Purpose))
+  ) +
+  stat_summary(fun = sum, geom = "line") +
+  facet_wrap(~ as.character(Purpose), scales = "free_y", nrow = 2) +
+  labs(title = "Australian tourism: by purpose of travel",
+       y = "Trips ('000)") +
+  # theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  guides(colour = guide_legend("Purpose"))
+```
+
+# Generating coherent forecasts
+
+- Third important function `reconcile()`
+- Note the workflow 
+
+```r
+data %>% aggregate_key() %>% model() %>% reconcile() %>% forecast()
+```
+
+1. Begin with a `tsibble` object (here labelled `data`) containing the individual bottom-level series.
+2. Define in `aggregate_key()` the aggregation structure and build a `tsibble` object that also contains the aggregate series.
+3. Identify a `model()` for each series, at all levels of aggregation.
+4. Specify in `reconcile()` how the coherent forecasts are to be generated from the selected models.
+5. Use the `forecast()` function to generate forecasts for the whole aggregation structure.
+
+
+## Single level approaches {#single-level}
+
+### The bottom-up approach {-}
+
+### Example: generating bottom-up forecasts
+
+Let's start with a simple example
+
+```{r tourism_states, message=FALSE}
+tourism_states <- tourism %>%
+  aggregate_key(State, Trips = sum(Trips))
+```
+
+```{r bottom_up, message=FALSE, cache=TRUE}
+fcasts <- tourism_states %>%
+  model(ets = ETS(Trips)) %>%
+  reconcile(bu = bottom_up(ets)) %>%
+  forecast()
+
+fcasts
+# This may be a little tricky at first
+# 18 series comprise
+# 2 sets of forecasts (ets + bu) * (8 states + 1 aggregate)
+
+fcasts %>% filter(is_aggregated(State)) # Aggregate
+fcasts %>% filter(!is_aggregated(State)) # Bottom level
+```
+
+```{r top_down, message=FALSE, cache=TRUE}
+fcasts <- tourism_states %>%
+  model(ets = ETS(Trips)) %>%
+  reconcile(bu = bottom_up(ets),
+            av_prop = top_down(ets, method="average_proportions"),
+            prop_av = top_down(ets, method="proportion_averages"),
+            # fcast_prop = top_down(ets, method="forecast_proportions") 
+            # not yet supported
+            ) %>%
+  forecast()
+
+fcasts$.model %>% unique()
+```
+
+## Forecast reconciliation {#reconciliation}
+
+### The MinT optimal reconciliation approach {-}
+
+MinT (Minimum Trace) optimal reconciliation approach is implemented by `min_trace()` within the `reconcile()` function.
+
+1. OLS: `method = "ols"`
+2. WLS(variance scaling) `method = "wls_var"`
+3. WLS(structural scaling) `method = "wls_struct"`
+4. MinT(Sample) `method = "mint_cov"`
+5. MinT(Shrink) `method = "mint_shrink"`
+
+## Forecasting Australian domestic tourism {#tourism}
+
+```{r tourismfit, echo=TRUE}
+tourism_full <- tourism %>%
+  aggregate_key((State / Region) * Purpose, Trips = sum(Trips))
+
+#tic()
+# DO NOT RUN (187.7 sec elapsed)
+fit_tourism <- tourism_full %>%
+  filter(year(Quarter) <= 2015) %>%
+  model(base = ETS(Trips)) %>%
+  reconcile(
+    bu = bottom_up(base),
+    ols = min_trace(base, method = "ols"),
+    mint = min_trace(base, method = "mint_shrink"),
+  )
+#toc()
+fit_tourism
+fit_tourism %>% filter(Region=="Canberra")
+
+#tic()
+# DO NOT RUN (takes 46.51 sec elapsed)
+fc_tourism <- fit_tourism %>% forecast(h = "2 years")
+#toc()
+
+fc_tourism
+fc_tourism %>% filter(is_aggregated(Region), is_aggregated(Purpose))
+fc_tourism$.model %>% unique()
+fc_tourism %>% distinct(State, Purpose) #5*9 
+```
+
+```{r tourism-states, fig.width=10, fig.asp = .6, echo=TRUE, fig.cap="Forecasts of overnight trips for Australia and its states over the test period 2016Q1--2017Q4.", warning=FALSE, message=FALSE, fig.pos="b", fig.env="figure*", dependson="tourismfc"}
+fc_tourism %>%
+  filter(is_aggregated(Region), is_aggregated(Purpose)) %>%
+  autoplot(
+    tourism_full %>% filter(year(Quarter) >= 2011),
+    level = NULL
+  ) +
+  labs(y = "Trips ('000)") +
+  facet_wrap(vars(State), scales = "free_y")
+```
+
+```{r tourism-purpose, echo=FALSE, fig.asp=.5, echo=TRUE, fig.cap="Forecasts of overnight trips by purpose of travel over the test period 2016Q1--2017Q4.", fig.env="figure*", fig.pos="b", fig.width=10, message=FALSE, warning=FALSE, dependson="tourismfc"}
+fc_tourism %>%
+  filter(is_aggregated(State), !is_aggregated(Purpose)) %>%
+  autoplot(
+    tourism_full %>% filter(year(Quarter) >= 2011),
+    level = NULL
+  ) +
+  labs(y = "Trips ('000)") +
+  facet_wrap(vars(Purpose), scales = "free_y")
+```
+
+Let's do some evaluation
+
+```{r fcaccuracy2, message=FALSE, dependson="tourismfc"}
+fc_tourism %>%
+  filter(is_aggregated(State), is_aggregated(Purpose)) %>%
+  accuracy(
+    data = tourism_full,
+    measures = list(rmse = RMSE, mase = MASE)
+  ) %>%
+  group_by(.model) %>%
+  summarise(rmse = mean(rmse), mase = mean(mase))
+```
+
+Go to book and see complete forecast evaluation Table 11.2.
+
+## Reconciled distributional forecasts {#rec-prob}
+
+## Forecasting Australian prison population {#prison}
+
+```{r prisonfc}
+#
+# DO NOT RUN
+#
+fit_prison <- prison_gts %>%
+  filter(year(Quarter) <= 2014) %>%
+  model(base = ETS(Count)) %>%
+  reconcile(
+    bottom_up = bottom_up(base),
+    MinT = min_trace(base, method = "mint_shrink")
+  )
+fc_prison <- fit_prison %>% forecast(h = 8)
+
+fit_prison
+fc_prison #1944 rows = 81*8*3
+```
+
+Revert to the book for the analysis of the forecasts/plots. 
+
